@@ -36,6 +36,10 @@ CREATE TABLE atencion_cliente(id_empleado INTEGER UNSIGNED NOT NULL,
 CREATE TABLE periodo(id_periodo INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE,
+    costo_hora_extra INTEGER UNSIGNED NOT NULL,
+    costo_dia_retraso INTEGER UNSIGNED NOT NULL,
+    costo_
+    iva DECIMAL UNSIGNED NOT NULL,
     PRIMARY KEY(id_periodo));
 
 CREATE TABLE salario(id_salario INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -53,15 +57,15 @@ CREATE TABLE salario(id_salario INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 
 CREATE TABLE salario_normal(id_salario INTEGER UNSIGNED NOT NULL,
     sueldo_basico INTEGER UNSIGNED NOT NULL,
-    hora_extra INTEGER UNSIGNED NOT NULL,
-    falta INTEGER UNSIGNED NULL,
-    retraso INTEGER UNSIGNED NULL,
-    iva DECIMAL UNSIGNED NOT NULL,
+    horas_extra INTEGER UNSIGNED NOT NULL,
+    dias_falta INTEGER UNSIGNED NULL,
+    dias_retraso INTEGER UNSIGNED NULL,
     FOREIGN KEY(id_salario) REFERENCES salario (id_salario)
     ON DELETE RESTRICT ON UPDATE CASCADE);
 
 CREATE TABLE salario_hora(id_salario INTEGER UNSIGNED NOT NULL,
     sueldo_hora INTEGER UNSIGNED NOT NULL,
+    cantidad_horas INTEGER UNSIGNED NOT NULL,
     FOREIGN KEY(id_salario) REFERENCES salario (id_salario)
     ON DELETE RESTRICT ON UPDATE CASCADE);
 
@@ -108,13 +112,13 @@ CREATE TABLE acceso_sala(id_cliente INTEGER UNSIGNED NOT NULL,
 
 CREATE TABLE paquete(id_paquete INTEGER UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(20) NOT NULL,
-    fecha_inicio DATETIME NOT NULL,
-    fecha_vigencia DATETIME NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_vigencia DATE NOT NULL,
     precio INTEGER UNSIGNED NOT NULL,
     numero_sesiones INTEGER UNSIGNED NOT NULL);
 
 CREATE TABLE paquete_extendido(id_paquete INTEGER UNSIGNED NOT NULL,
-    nueva_fecha DATETIME NOT NULL,
+    nueva_fecha DATE NOT NULL,
     precio_extra INTEGER NOT NULL,
     FOREIGN KEY (id_paquete)
     REFERENCES paquete (id_paquete) ON DELETE RESTRICT ON UPDATE CASCADE);
