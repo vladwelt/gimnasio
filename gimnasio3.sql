@@ -215,12 +215,13 @@ COLLATE = utf8_spanish2_ci;
 DROP TABLE IF EXISTS `gimnasio`.`COMPRA` ;
 
 CREATE  TABLE IF NOT EXISTS `gimnasio`.`COMPRA` (
-  `id_compra` INT NOT NULL AUTO_INCREMENT ,
+  `id_compra` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `id_paquete` INT UNSIGNED NOT NULL ,
   `id_cliente` INT UNSIGNED NOT NULL ,
   `numero_sesiones` INT NOT NULL ,
   `fecha_compra` DATE NOT NULL ,
   `sesiones_restantes` INT NULL ,
+  `fecha_caducidad` DATE NOT NULL ,
   INDEX `fk_PAQUETE_has_CLIENTE_CLIENTE1` (`id_cliente` ASC) ,
   INDEX `fk_PAQUETE_has_CLIENTE_PAQUETE1` (`id_paquete` ASC) ,
   PRIMARY KEY (`id_compra`) ,
@@ -245,7 +246,7 @@ COLLATE = utf8_spanish2_ci;
 DROP TABLE IF EXISTS `gimnasio`.`PAQUETE_EXTENDIDO` ;
 
 CREATE  TABLE IF NOT EXISTS `gimnasio`.`PAQUETE_EXTENDIDO` (
-  `id_compra` INT NOT NULL ,
+  `id_compra` INT UNSIGNED NOT NULL ,
   `nueva_fecha` DATE NOT NULL ,
   `precio` INT NOT NULL ,
   INDEX `fk_PAQUETE_EXTENDIDO_COMPRA1` (`id_compra` ASC) ,
@@ -338,7 +339,7 @@ DROP TABLE IF EXISTS `gimnasio`.`ACCESO_SESION` ;
 CREATE  TABLE IF NOT EXISTS `gimnasio`.`ACCESO_SESION` (
   `id_sesion` INT UNSIGNED NOT NULL ,
   `id_cliente` INT UNSIGNED NOT NULL ,
-  `id_compra` INT NOT NULL ,
+  `id_compra` INT UNSIGNED NOT NULL ,
   `hora_ingreso` TIME NOT NULL ,
   PRIMARY KEY (`id_sesion`, `id_cliente`) ,
   INDEX `fk_CLIENTE_has_SALA_CLIENTE1` (`id_cliente` ASC) ,
